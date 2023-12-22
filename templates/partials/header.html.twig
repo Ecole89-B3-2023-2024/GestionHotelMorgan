@@ -1,0 +1,41 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{ path('app_home') }}">Accueil</a>
+        </li>
+        {% if app.user is null %}
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/login">Connexion</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/logout">Déconnexion</a>
+        </li>
+        {% endif %}
+        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_RECEP') %}
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{ path('app_reservation_index') }}">Gestion des réservations</a>
+        </li>
+        {% endif %}
+        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MENAGE') %}
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{ path('app_chambre_index') }}">Gestion des ménages</a>
+        </li>
+        {% endif %}
+        {% if is_granted('ROLE_ADMIN')%}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Admin
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{{ path('app_chambre_index') }}">Gestion des chambres</a></li>
+            <li><a class="dropdown-item" href="{{ path('app_user_index') }}">Gestion des utilisateurs</a></li>
+          </ul>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>

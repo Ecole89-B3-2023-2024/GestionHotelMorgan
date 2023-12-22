@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un nouvel utilisateur{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Créer un nouvel utilisateur</h1>
+
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_row(form.username, {'attr': {'class': 'form-control', 'placeholder': 'Nom d\'utilisateur'}}) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_row(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Adresse email'}}) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_row(form.password, {'attr': {'class': 'form-control', 'placeholder': 'Mot de passe'}, 'type': 'password'}) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_row(form.roles, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Créer</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

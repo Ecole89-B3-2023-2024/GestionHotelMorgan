@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion Hotel{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    {% if app.user %}
+        <h1>Liste des chambres</h1>
+
+        <div class="row">
+            {% for chambre in chambres %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Chambre {{ chambre.numeroChambre }}</h5>
+                            <p class="card-text">
+                                {% if chambre.occupee %}
+                                    <span class="badge bg-danger">Occupée</span>
+                                {% else %}
+                                    <span class="badge bg-success">Disponible</span>
+                                {% endif %}
+                                {% if chambre.menage %}
+                                    <span class="badge bg-danger">Sale</span>
+                                {% else %}
+                                    <span class="badge bg-success">Propre</span>
+                                {% endif %}
+                            </p>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><strong>Nombre de places:</strong> {{ chambre.nombrePlaces }}</li>
+                                {% if is_granted('ROLE_MENAGE') == 0 %}
+                                    {% if chambre.occupee %}
+                                        <a href="#" class="btn btn-primary mt-3 disabled">Réserver</a>
+                                    {% else %}
+                                        <a href="{{ path('app_reservation_new_by_room_id', {'id': chambre.id}) }}" class="btn btn-primary mt-3">Réserver</a>
+                                    {% endif %}
+                                {% else %}
+                                    {% if chambre.menage %}
+                                        <a href="{{ path('app_chambre_nettoyer', {'id': chambre.id}) }}" class="btn btn-primary mt-3">Nettoyer</a>
+                                    {% else %}
+                                        <a href="#" class="btn btn-primary mt-3 disabled">Nettoyer</a>
+                                    {% endif %}
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-md-12">
+                    <p>No records found.</p>
+                </div>
+            {% endfor %}
+        </div>
+
+    {% else %}
+        <h1>Bonjour {{ controller_name }}, vous n'êtes pas connecté ! ✅</h1>
+    {% endif %}
+</div>
+
+{% endblock %}
+

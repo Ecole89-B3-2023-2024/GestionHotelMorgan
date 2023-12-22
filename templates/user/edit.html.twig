@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Éditer l'utilisateur{{ user.username }}{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Éditer l'utilisateur {{ user.username }}</h1>
+
+        {{ form_start(form) }}
+         <div class="row">
+            <div class="col-md-6">
+                {{ form_row(form.username, {'attr': {'class': 'form-control', 'placeholder': 'Nom d\'utilisateur'}}) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_row(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Adresse email'}}) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_row(form.password, {'attr': {'class': 'form-control', 'placeholder': 'Mot de passe'}, 'type': 'password', 'value': ''}) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_row(form.roles, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Enregistrer les modifications</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

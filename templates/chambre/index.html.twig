@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Chambre index{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+
+        <h1>Liste des chambres</h1>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Numéro de chambre</th>
+                    <th>Nombre de places</th>
+                    <th>Statut</th>
+                    <th>Ménage</th>
+                    {% if is_granted('ROLE_MENAGE') == 0 %}
+                    <th>Actions</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+            {% for chambre in chambres %}
+                <tr>
+                    <td>{{ chambre.id }}</td>
+                    <td>{{ chambre.numeroChambre }}</td>
+                    <td>{{ chambre.nombrePlaces }}</td>
+                    <td>
+                        {% if chambre.occupee %}
+                            <span class="badge bg-danger">Occupée</span>
+                        {% else %}
+                            <span class="badge bg-success">Disponible</span>
+                        {% endif %}
+                    </td>
+                     <td>
+                        {% if chambre.menage %}
+                            <span class="badge bg-danger">Sale</span>
+                        {% else %}
+                            <span class="badge bg-success">Propre</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if is_granted('ROLE_MENAGE') == 0 %}
+                            <a href="{{ path('app_chambre_show', {'id': chambre.id}) }}" class="btn btn-primary">Voir</a>
+                            <a href="{{ path('app_chambre_edit', {'id': chambre.id}) }}" class="btn btn-warning">Modifier</a>
+                        {% endif %}
+                        {% if is_granted('ROLE_MENAGE') or is_granted('ROLE_ADMIN')%}
+                            {% if chambre.menage %}
+                                <a href="{{ path('app_chambre_nettoyer', {'id': chambre.id}) }}" class="btn btn-info">Nettoyer</a>
+                            {% else %}
+                                <a href="#" class="btn btn-info disabled">Nettoyer</a>
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        {% if is_granted('ROLE_MENAGE') == 0 %}
+            <a href="{{ path('app_chambre_new') }}" class="btn btn-success">Créer une chambre</a>
+        {% endif %}
+    </div>
+{% endblock %}

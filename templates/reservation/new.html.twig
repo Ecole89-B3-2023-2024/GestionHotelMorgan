@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle Reservation{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+
+
+        <h1>Créer une nouvelle réservation</h1>
+        {{ form_start(form) }}
+             <div class="row">
+            <div class="col-md-6">
+                {{ form_row(form.chambre, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_row(form.client.email, {'attr': {'class': 'form-control', 'placeholder': 'Adresse email'}}) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_row(form.client.prenom,  {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_row(form.client.nom, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+         <div class="row">
+            <div class="col-md-6">
+                {{ form_row(form.client.adresse, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_row(form.client.postal, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+            <button type="submit" class="btn btn-primary mt-3">Créer</button>
+        {{ form_end(form) }}
+
+    </div>
+{% endblock %}

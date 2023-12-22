@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Chambre{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+
+        <h1>Modifier la chambre</h1>
+
+        {{ form_start(form) }}
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_row(form.numeroChambre, {'attr': {'class': 'form-control', 'placeholder': 'Numéro de chanmbre'}}) }}
+                </div>
+                <div class="col-md-6">
+                    {{ form_row(form.nombrePlaces, {'attr': {'class': 'form-control', 'placeholder': 'Nombre de places'}}) }}
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Enregistrer les modifications</button>
+            {{ form_end(form) }}
+    </div>
+{% endblock %}
